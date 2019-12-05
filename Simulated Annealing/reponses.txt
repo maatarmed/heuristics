@@ -1,0 +1,20 @@
+Exercice1:
+1) When the temperature is high (T=10^6) we have alo of randomness in our energy during the whole process (the energy varies all the time becuase the probability to go to the next city is always almost 1 even if the solution doesn't improve the best solution)=> encourages exploration
+
+2) When T is near 0 we almost have no randomness in choosing next city, we take only values that improve our best solution (exploitation)
+
+3) 
+
+
+Exercice2:
+1) number of improvements: ti7at uniq : graph 2. ImprovementRation =number of improvements/number of evaluations(iterations)
+
+2)performance critera is after how much iterations do we get an good result
+
+3) stable if we run multipule times it we get always good solution (near optimal)(all have almost same solution)
+
+
+ex4:
+1) yes wise 5ater taatiakther chance lel exploration w lezm dima nchoufou belek statistically nal9aw pt nebdew mennou 5ir (asra3 w better results) f cas complex najmou naarfou l pt li nebdew mennou b un algorithm
+
+2) 
