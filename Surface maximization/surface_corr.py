@@ -6,7 +6,7 @@
 # Peio Loubiere pour l'EISTI
 # septembre 2017
 # usage : python surface.corr1.py 
-from typing import List
+#from typing import List
 
 from scipy import *
 from math import *
@@ -37,8 +37,8 @@ canv2.set_ylim(0, 500)
 
 
 # polygone = ((10,10),(10,300),(250,300),(350,130),(200,10))
-polygone = ((50,150),(200,50),(350,150),(350,300),(250,300),(200,250),(150,350),(100,250),(100,200))
-# polygone = ((50,50),(50,400),(220,310),(220,170),(330,170),(330,480),(450,480),(450,50))
+# polygone = ((50,150),(200,50),(350,150),(350,300),(250,300),(200,250),(150,350),(100,250),(100,200))
+polygone = ((50,50),(50,400),(220,310),(220,170),(330,170),(330,480),(450,480),(450,50))
 
 # ***********************************************************
 
@@ -87,7 +87,7 @@ def dessine(polyfig, rectfig):
     plt.title("Best all :Aire : {}".format(round(aire(rectfig[:]), 2)))
 
     plt.draw()
-    plt.pause(0.2)
+    plt.pause(0.01)
 
 
 def dessine2(polyfig, rectfig):
@@ -95,6 +95,7 @@ def dessine2(polyfig, rectfig):
     canv2.clear()
     canv2.set_xlim(0, 500)
     canv2.set_ylim(0, 500)
+
     # Dessin du polygone
     codes2 = [Path.MOVETO]
     for i in range(len(polyfig) - 2):
@@ -119,9 +120,8 @@ def dessine2(polyfig, rectfig):
     # Affichage du titre (aire du rectangle)
     plt.figure(2)
     plt.title("Best Cycle : Aire = {}".format(round(aire(rectfig[:]), 2)))
-
     plt.draw()
-    plt.pause(0.2)
+    plt.pause(0.01)
 
 
 # Récupère les bornes de la bounding box autour de la parcelle
@@ -244,7 +244,7 @@ def getBest(population):
 """
 PSO ALGORITH IMPLEMENTATION
 """
-Nb_cycles = 20
+Nb_cycles = 50
 Nb_particle = 30
 # usual params
 psi, cmax = (0.7, 2)
@@ -259,7 +259,7 @@ def move(particle, polygone):
     nv = dict(particle)
     dim = len(particle['vit'])
     position = []
-    velocity: List[int] = [0] * len(particle['vit'])
+    velocity = [0] * len(particle['vit'])
     counter = 0
     while not boolOK:
         angle_is_ok = False
@@ -335,23 +335,17 @@ for i in range(Nb_cycles):
     pop = [move(e, polygone) for e in pop]
     for k, part in enumerate(pop):
         velocity_list[k].append(part['vit'])
-
-    """for i in range(len(l_move)):
-        print(l_init[i])
-        print(l_update[i])
-        print(l_move[i])
-        print("-------\n")"""
     # Mise à jour de la meilleure solution et affichage
     best_cycle = getBest(pop)
     print("cycle = " + str(i))
-    dessine2(polygonefig, poly2list(pos2rect(best_cycle["pos"])))
+    dessine2(polygonefig, poly2list(pos2rect(best_cycle["bestpos"])))
     if best_cycle["bestfit"] >= best["bestfit"]:
         best = best_cycle
         print(best)
-        dessine(polygonefig, poly2list(pos2rect(best["pos"])))
+        dessine(polygonefig, poly2list(pos2rect(best["bestpos"])))
 
 print("DONE!")
 # FIN : affichages
-dessine2(polygonefig, poly2list(pos2rect(best_cycle["pos"])))
-dessine(polygonefig, poly2list(pos2rect(best["pos"])))
+dessine2(polygonefig, poly2list(pos2rect(best_cycle["bestpos"])))
+dessine(polygonefig, poly2list(pos2rect(best["bestpos"])))
 plt.show()
